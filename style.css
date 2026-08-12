@@ -1,0 +1,112 @@
+/* 全局样式 HoneySleep 深色暗黑风格 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --bg-main: #0c0c10;
+    --bg-card: #16161c;
+    --text-primary: #f3f3f7;
+    --text-secondary: #b4b4c2;
+    --accent: #e6c890;
+    --border: #272733;
+    --transition: all 0.3s ease;
+}
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.65;
+    scroll-behavior: smooth;
+}
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+/* 导航栏 */
+header {
+    position: sticky;
+    top: 0;
+    background: rgba(12,12,16,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    z-index: 999;
+}
+.nav-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 72px;
+}
+.logo {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin-left: 32px;
+    transition: var(--transition);
+}
+.nav-links a:hover, .nav-links a.active {
+    color: var(--accent);
+}
+/* 通用区块 */
+section {
+    padding: 80px 0;
+}
+h1 {
+    font-size: 44px;
+    margin-bottom: 20px;
+}
+h2 {
+    font-size: 28px;
+    margin-bottom: 16px;
+}
+p {
+    color: var(--text-secondary);
+    font-size: 17px;
+}
+/* 卡片 */
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px;
+    transition: var(--transition);
+}
+.card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+}
+/* 动画 */
+.fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: fadeIn 0.7s ease forwards;
+}
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* 页脚 */
+footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 0;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size:14px;
+}
+/* 移动端适配 */
+@media (max-width:768px) {
+    h1 {font-size:32px;}
+    .nav-links a {margin-left:16px;}
+    .nav-wrap {height:auto; padding:16px 0; flex-direction:column; gap:12px;}
+    section {padding:50px 0;}
+}
