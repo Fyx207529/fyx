@@ -33,6 +33,11 @@ header {
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     z-index: 999;
+    transition: var(--transition);
+}
+header.scrolled {
+    background: rgba(12,12,16,0.96);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.45);
 }
 .nav-wrap {
     display: flex;
@@ -53,6 +58,56 @@ header {
     transition: var(--transition);
 }
 .nav-links a:hover, .nav-links a.active {
+    color: var(--accent);
+}
+/* 汉堡菜单按钮 */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    z-index: 1000;
+}
+.hamburger span {
+    width: 24px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: var(--transition);
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+/* 回到顶部 */
+#backTop {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border-radius: 50%;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: var(--transition);
+    z-index: 999;
+}
+#backTop.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+#backTop:hover {
+    border-color: var(--accent);
     color: var(--accent);
 }
 /* 通用区块 */
@@ -87,6 +142,8 @@ p {
 .fade-in {
     opacity: 0;
     transform: translateY(24px);
+}
+.fade-in.show {
     animation: fadeIn 0.7s ease forwards;
 }
 @keyframes fadeIn {
@@ -106,7 +163,18 @@ footer {
 /* 移动端适配 */
 @media (max-width:768px) {
     h1 {font-size:32px;}
+    .nav-wrap {height:auto; padding:16px 0; flex-wrap:wrap;}
     .nav-links a {margin-left:16px;}
-    .nav-wrap {height:auto; padding:16px 0; flex-direction:column; gap:12px;}
+    .nav-menu {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        background: var(--bg-main);
+        padding: 12px 0;
+    }
+    .nav-menu.open {display:flex;}
+    .nav-menu a {margin: 8px 0;}
+    .hamburger {display:flex;}
+    #backTop {right:16px; bottom:16px;}
     section {padding:50px 0;}
 }
