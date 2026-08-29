@@ -6,6 +6,8 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; form-action 'self'">
     <meta name="referrer" content="no-referrer">
     <title>付宇轩 | Home</title>
+    <meta name="description" content="付宇轩的个人网站。大一人工智能专业，专注智能睡眠硬件研发与前端网页开发。">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%23e6c890'/%3E%3Ctext%20x='16'%20y='22'%20font-size='18'%20text-anchor='middle'%20fill='%23000'%20font-family='sans-serif'%3EF%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -30,11 +32,17 @@
     <button id="backTop" aria-label="回到顶部">↑</button>
 
     <main class="container fade-in">
-        <section style="min-height: calc(100vh - 72px); display:flex; flex-direction:column; justify-content:center;">
+        <section class="hero">
             <h1>你好，我是付宇轩</h1>
-            <p style="max-width:640px; font-size:20px;">大一人工智能专业，专注智能睡眠硬件研发，深耕硬件器件选型与方案评估，同时自学前端开发，搭建个人项目展示网站。</p>
-            <div style="margin-top:36px;">
-                <a href="projects.html" style="display:inline-block; padding:14px 28px; background:var(--accent); color:#000; border-radius:8px; text-decoration:none; font-weight:500;">查看项目</a>
+            <p class="lead">大一人工智能专业，专注智能睡眠硬件研发，深耕硬件器件选型与方案评估，同时自学前端开发，搭建个人项目展示网站。</p>
+            <div class="hero-actions">
+                <a href="projects.html" class="btn">查看项目</a>
+                <a href="contact.html" class="btn ghost">联系我</a>
+            </div>
+            <div class="highlights">
+                <div class="card highlight"><div class="num">AI</div><div class="label">人工智能专业 · 大一</div></div>
+                <div class="card highlight"><div class="num">硬件</div><div class="label">器件选型 / 方案评估</div></div>
+                <div class="card highlight"><div class="num">前端</div><div class="label">HTML / CSS 网页开发</div></div>
             </div>
         </section>
     </main>
