@@ -257,14 +257,12 @@ function Hero() {
     <section
       className="relative w-full h-screen overflow-hidden bg-[#080A19]"
     >
-      <video
-        className="absolute inset-0 w-full h-full object-cover"
-        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260813_092641_de52eb87-daf2-41db-92cb-7a56eae012a5.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-      />
+      <div className="hero-bg" aria-hidden="true">
+        <div className="hero-bg__glow hero-bg__glow--1" />
+        <div className="hero-bg__glow hero-bg__glow--2" />
+        <div className="hero-bg__glow hero-bg__glow--3" />
+        <div className="hero-bg__vignette" />
+      </div>
       <div className="relative z-10 h-full flex flex-col">
         <Nav />
 
