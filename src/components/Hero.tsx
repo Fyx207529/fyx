@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronDown, Menu, X } from 'lucide-react';
 
 const BAR_HEIGHTS = [
@@ -48,21 +48,21 @@ const RevenueCard = () => {
           Revenue Growth
         </p>
         <p className="mb-2 sm:mb-3">
-          <span class="text-white text-[28px] sm:text-[46px] font-[450] leading-[1]">
+          <span className="text-white text-[28px] sm:text-[46px] font-[450] leading-[1]">
             $14,205,890
           </span>
-          <span class="text-white/20 text-[28px] sm:text-[46px] font-[450] leading-[1]">.00</span>
+          <span className="text-white/20 text-[28px] sm:text-[46px] font-[450] leading-[1]">.00</span>
         </p>
         <div
           className="flex items-center gap-[10px] mb-6 sm:mb-8"
         >
           <span
-            class="px-[6px] py-[7px] bg-white/20 rounded-[6px] text-white text-[12px] sm:text-[14px] font-[450] leading-[14px]"
+            className="px-[6px] py-[7px] bg-white/20 rounded-[6px] text-white text-[12px] sm:text-[14px] font-[450] leading-[14px]"
           >
             +32.4%
           </span>
           <span
-            class="text-white/80 text-[12px] sm:text-[14px] font-[450] leading-[14px] opacity-70"
+            className="text-white/80 text-[12px] sm:text-[14px] font-[450] leading-[14px] opacity-70"
           >
             vs. previous period ($10.7M)
           </span>
@@ -94,10 +94,10 @@ const RevenueCard = () => {
                 className="absolute top-0 bottom-0 w-px bg-white/10"
                 style={{ left: `${((i + 1) / 5) * 100}%` }}
               />
-            )}
+            ))}
           </div>
           <div className="flex justify-between mt-3">
-            {[10, 12, 14, 16, 16].map((label) => (
+            {[10, 12, 14, 16, 16].map((label, i) => (
               <div
                 key={label}
                 className="text-[9px] sm:text-[10px] font-[450] leading-[10px] text-white/80"
@@ -105,11 +105,12 @@ const RevenueCard = () => {
               >
                 {label}
               </div>
-            )}
+            ))}
           </div>
         </div>
       </div>
-    );
+    </Animate>
+  );
 };
 
 const Nav = () => {
@@ -153,12 +154,12 @@ const Nav = () => {
           <div
             className="h-[52px] px-6 flex items-center gap-[30px] bg-[rgba(10,7,7,0.35)] rounded-[11px] backdrop-blur-[17px]"
           >
-            <span class="text-white/80 text-[14px] font-[450] leading-[14px] hover:text-white transition-colors">
+            <span className="text-white/80 text-[14px] font-[450] leading-[14px] hover:text-white transition-colors">
               Platform
             </span>
-            <span class="text-white/80 text-[14px] font-[450] leading-[14px] hover:text-white transition-colors">Pricing</span>
-            <span class="text-white/80 text-[14px] font-[450] leading-[14px] hover:text-white transition-colors">Resources</span>
-            <span class="text-white/80 text-[14px] font-[450] hover:text-white transition-colors">Blog</span>
+            <span className="text-white/80 text-[14px] font-[450] leading-[14px] hover:text-white transition-colors">Pricing</span>
+            <span className="text-white/80 text-[14px] font-[450] leading-[14px] hover:text-white transition-colors">Resources</span>
+            <span className="text-white/80 text-[14px] font-[450] hover:text-white transition-colors">Blog</span>
             <ChevronDown className="w-[10px] h-[10px] opacity-80" />
           </div>
         </Animate>
@@ -191,12 +192,12 @@ const Nav = () => {
             <div className="relative w-5 h-5">
               <Menu
                 className="w-5 h-5 text-white absolute inset-0 transition-all duration-300 ease-out"
-                  style={isOpen ? { opacity: 0, rotate: '90scale' } : { opacity: 100, rotate: 0 }}
-                />}
-                <X
-                  className="w-5 h-5 text-white absolute inset-0 transition-all duration-300 ease-out"
-                  style={isOpen ? { opacity: 100, rotate: 0, scale: 100 } : { opacity: 0, rotate: '-90', scale: '75' }}
-                />
+                style={isOpen ? { opacity: 0, transform: 'rotate(90deg) scale(0.75)' } : { opacity: 1, transform: 'rotate(0deg) scale(1)' }}
+              />
+              <X
+                className="w-5 h-5 text-white absolute inset-0 transition-all duration-300 ease-out"
+                style={isOpen ? { opacity: 1, transform: 'rotate(0deg) scale(1)' } : { opacity: 0, transform: 'rotate(-90deg) scale(0.75)' }}
+              />
               </div>
             </button>
           </Animate>
@@ -204,23 +205,16 @@ const Nav = () => {
           {/* Mobile menu overlay */}
           <>
             <div
-              className="lg:hidden fixed inset-0 z-40 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] + (isOpen ? 'visible' : 'invisible')"
+              className={`lg:hidden fixed inset-0 z-40 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isOpen ? 'visible' : 'invisible'}`}
             >
               <div
-                className="absolute inset-0 bg-[#080A19]/90 backdrop-blur-[24px] transition-opacity duration-500 + (isOpen ? 'opacity-100' : 'opacity-0')"
+                className={`absolute inset-0 bg-[#080A19]/90 backdrop-blur-[24px] transition-opacity duration-500 ${isOpen ? 'opacity-100' : 'opacity-0'}`}
               />
               <div
-                className="absolute top-[76px] sm:top-[86px] left-4 right-4 sm:left-6 sm:right-6"
-                bg="[rgba(17,16,15,0.6)]"
-                backdrop-blur-[30px]
-                rounded-[20px]
-                border border-white/[0.06]
-                p-6 sm:p-8
-                transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] origin-top
-                + (isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-4 scale-[0.97]')
+                className={`absolute top-[76px] sm:top-[86px] left-4 right-4 sm:left-6 sm:right-6 bg-[rgba(17,16,15,0.6)] backdrop-blur-[30px] rounded-[20px] border border-white/[0.06] p-6 sm:p-8 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] origin-top ${isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-4 scale-[0.97]'}`}
               >
                 <div className="flex flex-col gap-1">
-                  ['Platform', 'Pricing', 'Resources', 'Blog'].map((item, i) => (
+                  {['Platform', 'Pricing', 'Resources', 'Blog'].map((item, i) => (
                     <a
                       href="#"
                       key={item}
@@ -232,7 +226,7 @@ const Nav = () => {
                         <ChevronDown className="w-4 h-4 opacity-50" />
                       )}
                     </a>
-                  )}
+                  ))}
                   <div className="h-px bg-white/10 my-5" />
                   <div
                     className="flex flex-col gap-3 transition-all duration-300"
@@ -250,19 +244,18 @@ const Nav = () => {
                     </button>
                   </div>
                 </div>
-              </>
-            </>
+              </div>
+            </div>
           </>
-        </>
-      }
+      </nav>
     </>
   );
 };
 
-export default function Hero() {
+function Hero() {
   return (
     <section
-      class="relative w-full h-screen overflow-hidden bg-[#080A19]"
+      className="relative w-full h-screen overflow-hidden bg-[#080A19]"
     >
       <video
         className="absolute inset-0 w-full h-full object-cover"
@@ -275,9 +268,9 @@ export default function Hero() {
       <div className="relative z-10 h-full flex flex-col">
         <Nav />
 
-        <div class="flex-1 flex items-center py-8">
-          <div class="w-full max-w-[1800px] mx-auto px-5 sm:px-8 md:px-[82px] flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 lg:gap-12">
-            <div class="max-w-[593px]">
+        <div className="flex-1 flex items-center py-8">
+          <div className="w-full max-w-[1800px] mx-auto px-5 sm:px-8 md:px-[82px] flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 lg:gap-12">
+            <div className="max-w-[593px]">
               <Animate delay={300} direction="up">
                 <h1
                   className="text-white text-[36px] sm:text-[52px] md:text-[64px] lg:text-[72px] font-normal leading-[0.95] mb-5 sm:mb-8"
@@ -297,36 +290,12 @@ export default function Hero() {
               <Animate delay={700} direction="up">
                 <div className="flex flex-wrap gap-3 sm:gap-4">
                   <button
-                    h=[46px]
-                    sm:h=[51px]
-                    px-5
-                    sm:px-[27px]
-                    bg-[#E9E9E9]
-                    color="#0A0707"
-                    border-radius="12px"
-                    text="[14px] sm:text-[15.5px]"
-                    font="[450]"
-                    leading="[15.5px]"
-                    transition="opacity 200ms"
-                    onMouseOver={() => setOpacity(0.9)}
-                    onMouseOut={() => setOpacity(1)}
+                    className="h-[46px] sm:h-[51px] px-5 sm:px-[27px] bg-[#E9E9E9] text-[#0A0707] rounded-[12px] text-[14px] sm:text-[15.5px] font-[450] leading-[15.5px] transition-opacity duration-200 hover:opacity-90"
                   >
                     Book a demo
                   </button>
                   <button
-                    h=[46px]
-                    sm:h=[51px]
-                    px-5
-                    sm:px-[27px]
-                    borderRadius="12px"
-                    border="1px solid white"
-                    color="white"
-                    text="[14px] sm:text-[15.5px]"
-                    font="[450]"
-                    leading="[15.5px]"
-                    transition="opacity 200ms"
-                    onMouseOver={() => setOpacity(0.8)}
-                    onMouseOut={() => setOpacity(1)}
+                    className="h-[46px] sm:h-[51px] px-5 sm:px-[27px] rounded-[12px] border border-white text-white text-[14px] sm:text-[15.5px] font-[450] leading-[15.5px] transition-opacity duration-200 hover:opacity-80"
                   >
                     Talk with the team
                   </button>
@@ -337,8 +306,8 @@ export default function Hero() {
             <RevenueCard />
           </div>
         </div>
+      </div>
       </section>
-    </>
   );
 };
 export default Hero;
