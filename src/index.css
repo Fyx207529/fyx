@@ -16,87 +16,230 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===== Hero 动态背景：原创 CSS 动画，替换模板第三方视频，规避版权风险 ===== */
-.hero-bg {
+/* ============================================================
+   电影级动态背景（原创 CSS，纯装饰层）
+   层次：天空 → 远云 → 中景云 → 能量地平线 → 体积光射线
+        → 大气雾 → 高光核心 → 前景雾 → 微粒 → 暗角
+   ============================================================ */
+.cb {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: #080a19;
+  background: #020617;
+  --mx: 0px;
+  --my: 0px;
 }
 
-.hero-bg__glow {
+/* 视差容器：--d 控制深度，--mx / --my 由 JS 写入 */
+.cb__layer {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(calc(var(--mx) * var(--d, 0.3)), calc(var(--my) * var(--d, 0.3)), 0);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* 1. 远景天空：顶部最暗，靠近地平线最亮 */
+.cb__sky {
+  position: absolute;
+  inset: -8%;
+  background:
+    radial-gradient(92% 72% at 50% 74%, rgba(36, 152, 212, 0.34) 0%, rgba(11, 58, 104, 0.26) 38%, rgba(6, 21, 45, 0) 72%),
+    linear-gradient(180deg, #01040f 0%, #06152d 38%, #082b52 70%, #020617 100%);
+}
+
+/* 2. 高空巨型云团（蓝黑） */
+.cb__clouds-far {
+  position: absolute;
+  inset: -26%;
+  background:
+    radial-gradient(38% 26% at 20% 16%, rgba(2, 6, 23, 0.96) 0%, rgba(6, 21, 45, 0.58) 55%, rgba(2, 6, 23, 0) 78%),
+    radial-gradient(44% 24% at 60% 10%, rgba(3, 9, 30, 0.94) 0%, rgba(8, 43, 82, 0.44) 58%, rgba(2, 6, 23, 0) 80%),
+    radial-gradient(34% 20% at 90% 24%, rgba(2, 6, 23, 0.9) 0%, rgba(6, 21, 45, 0.5) 60%, rgba(2, 6, 23, 0) 82%);
+  animation: cbCloudFar 90s ease-in-out infinite;
+}
+
+/* 3. 中层大气云 */
+.cb__clouds-mid {
+  position: absolute;
+  inset: -22%;
+  background:
+    radial-gradient(30% 22% at 10% 40%, rgba(18, 63, 120, 0.52) 0%, rgba(6, 21, 45, 0) 72%),
+    radial-gradient(38% 26% at 46% 32%, rgba(8, 43, 82, 0.58) 0%, rgba(3, 12, 32, 0) 76%),
+    radial-gradient(28% 24% at 80% 44%, rgba(23, 105, 170, 0.34) 0%, rgba(6, 21, 45, 0) 74%);
+  animation: cbCloudMid 68s ease-in-out infinite;
+}
+
+/* 4. 能量地平线光晕（红 / 橙 / 微量品红） */
+.cb__horizon {
+  position: absolute;
+  left: 50%;
+  bottom: 14%;
+  width: 124%;
+  height: 48%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    50% 62% at 50% 62%,
+    rgba(255, 106, 50, 0.52) 0%,
+    rgba(255, 42, 26, 0.3) 30%,
+    rgba(199, 43, 114, 0.13) 54%,
+    rgba(2, 6, 23, 0) 78%
+  );
+  animation: cbHorizonPulse 12s ease-in-out infinite;
+}
+
+/* 5. 体积光射线：自地平线向上，柔和不实 */
+.cb__rays {
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  width: 142%;
+  height: 92%;
+  transform: translateX(-50%);
+  background: repeating-linear-gradient(
+    100deg,
+    rgba(255, 138, 61, 0.11) 0%,
+    rgba(255, 138, 61, 0) 3%,
+    rgba(255, 138, 61, 0) 6.5%,
+    rgba(92, 200, 255, 0.06) 8.5%,
+    rgba(92, 200, 255, 0) 13%
+  );
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.32) 42%, rgba(0, 0, 0, 0) 78%);
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.32) 42%, rgba(0, 0, 0, 0) 78%);
+  mix-blend-mode: screen;
+  animation: cbRays 34s ease-in-out infinite;
+}
+
+/* 6. 大气雾 A（慢） */
+.cb__fog-a {
+  position: absolute;
+  inset: -30% -42%;
+  background:
+    radial-gradient(46% 30% at 28% 62%, rgba(23, 105, 170, 0.3) 0%, rgba(6, 21, 45, 0) 70%),
+    radial-gradient(40% 28% at 74% 70%, rgba(36, 152, 212, 0.2) 0%, rgba(2, 6, 23, 0) 72%);
+  animation: cbFogA 44s ease-in-out infinite;
+}
+
+/* 7. 地平线高光核心 */
+.cb__horizon-core {
+  position: absolute;
+  left: 50%;
+  bottom: 19%;
+  width: 48%;
+  height: 20%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(255, 138, 61, 0.72) 0%,
+    rgba(255, 77, 45, 0.36) 38%,
+    rgba(255, 42, 26, 0) 74%
+  );
+  filter: blur(30px);
+  animation: cbHorizonPulse 11s ease-in-out infinite;
+}
+
+/* 8. 前景雾 B（更快，方向相反） */
+.cb__fog-b {
+  position: absolute;
+  inset: -26% -38%;
+  background:
+    radial-gradient(52% 34% at 56% 80%, rgba(11, 58, 104, 0.44) 0%, rgba(2, 6, 23, 0) 72%),
+    radial-gradient(38% 26% at 16% 86%, rgba(92, 200, 255, 0.13) 0%, rgba(2, 6, 23, 0) 74%);
+  animation: cbFogB 62s ease-in-out infinite;
+}
+
+/* 9. 微粒场 */
+.cb__particles {
+  position: absolute;
+  inset: 0;
+}
+.cb__particle {
   position: absolute;
   border-radius: 50%;
-  filter: blur(70px);
+  background: rgb(var(--pc));
   will-change: transform, opacity;
+  animation: cbParticle var(--pdur) linear var(--pdelay) infinite;
 }
 
-/* 主红辉：风暴光源，缓慢漂移 + 呼吸 */
-.hero-bg__glow--1 {
-  width: 72vw;
-  height: 72vw;
-  left: -12%;
-  top: -22%;
-  background: radial-gradient(circle at center,
-    rgba(255, 64, 48, 0.55) 0%,
-    rgba(214, 40, 40, 0.32) 35%,
-    rgba(120, 20, 40, 0.10) 60%,
-    rgba(8, 10, 25, 0) 75%);
-  animation: heroGlowDrift 22s ease-in-out infinite;
-}
-
-/* 次辉：深红 / 品红，反向漂移 */
-.hero-bg__glow--2 {
-  width: 66vw;
-  height: 66vw;
-  right: -16%;
-  bottom: -26%;
-  background: radial-gradient(circle at center,
-    rgba(180, 28, 64, 0.45) 0%,
-    rgba(120, 24, 60, 0.20) 45%,
-    rgba(8, 10, 25, 0) 72%);
-  animation: heroGlowDrift2 28s ease-in-out infinite;
-}
-
-/* 暖橙微光：增加层次 */
-.hero-bg__glow--3 {
-  width: 52vw;
-  height: 52vw;
-  left: 24%;
-  top: 28%;
-  background: radial-gradient(circle at center,
-    rgba(255, 122, 40, 0.22) 0%,
-    rgba(255, 90, 40, 0.08) 45%,
-    rgba(8, 10, 25, 0) 70%);
-  animation: heroGlowPulse 16s ease-in-out infinite;
-}
-
-/* 暗角：保证白色文字可读 */
-.hero-bg__vignette {
+/* 10. 暗角：压暗四角与上缘，保留地平线亮度 */
+.cb__vignette {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(120% 120% at 50% 42%, rgba(8, 10, 25, 0) 40%, rgba(8, 10, 25, 0.55) 100%),
-    linear-gradient(to bottom, rgba(8, 10, 25, 0.25) 0%, rgba(8, 10, 25, 0) 30%, rgba(8, 10, 25, 0.45) 100%);
+    radial-gradient(116% 96% at 50% 70%, rgba(2, 6, 23, 0) 40%, rgba(2, 6, 23, 0.5) 78%, rgba(1, 3, 10, 0.9) 100%),
+    linear-gradient(180deg, rgba(1, 3, 10, 0.62) 0%, rgba(1, 3, 10, 0) 34%);
 }
 
-@keyframes heroGlowDrift {
-  0%   { transform: translate3d(-6%, -4%, 0) scale(1.05); }
-  50%  { transform: translate3d(10%, 6%, 0) scale(1.25); }
-  100% { transform: translate3d(-6%, -4%, 0) scale(1.05); }
-}
-@keyframes heroGlowDrift2 {
-  0%   { transform: translate3d(8%, 6%, 0) scale(1.15); }
-  50%  { transform: translate3d(-10%, -6%, 0) scale(0.95); }
-  100% { transform: translate3d(8%, 6%, 0) scale(1.15); }
-}
-@keyframes heroGlowPulse {
-  0%, 100% { opacity: 0.55; transform: translate3d(0, 0, 0) scale(1); }
-  50%      { opacity: 0.90; transform: translate3d(2%, -3%, 0) scale(1.12); }
+/* 保证叠在背景上的中文文案始终清晰可读 */
+.cb__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(2, 6, 23, 0.42) 0%,
+    rgba(2, 6, 23, 0.12) 34%,
+    rgba(2, 6, 23, 0.46) 100%
+  );
 }
 
-/* 尊重系统“减少动效”偏好 */
+/* ---------- 动画：全部慢速、错开，避免同步与明显循环 ---------- */
+@keyframes cbCloudFar {
+  0%   { transform: translate3d(-3%, 0, 0) scale(1.04); }
+  50%  { transform: translate3d(4%, 1.6%, 0) scale(1.12); }
+  100% { transform: translate3d(-3%, 0, 0) scale(1.04); }
+}
+@keyframes cbCloudMid {
+  0%   { transform: translate3d(3%, 1%, 0) scale(1.08); }
+  50%  { transform: translate3d(-4%, -1.6%, 0) scale(1); }
+  100% { transform: translate3d(3%, 1%, 0) scale(1.08); }
+}
+@keyframes cbFogA {
+  0%   { transform: translate3d(-6%, 0, 0) scale(1.05); }
+  50%  { transform: translate3d(7%, -2%, 0) scale(1.15); }
+  100% { transform: translate3d(-6%, 0, 0) scale(1.05); }
+}
+@keyframes cbFogB {
+  0%   { transform: translate3d(5%, 2%, 0) scale(1.1); }
+  50%  { transform: translate3d(-7%, -2%, 0) scale(1.02); }
+  100% { transform: translate3d(5%, 2%, 0) scale(1.1); }
+}
+@keyframes cbHorizonPulse {
+  0%, 100% { opacity: 0.74; transform: translateX(-50%) scale(1); }
+  50%      { opacity: 1;    transform: translateX(-50%) scale(1.06); }
+}
+@keyframes cbRays {
+  0%   { transform: translateX(-50%) translate3d(-2%, 0, 0) skewX(-2deg); opacity: 0.5; }
+  50%  { transform: translateX(-50%) translate3d(2%, -1%, 0) skewX(2deg);  opacity: 0.85; }
+  100% { transform: translateX(-50%) translate3d(-2%, 0, 0) skewX(-2deg);  opacity: 0.5; }
+}
+@keyframes cbParticle {
+  0%   { transform: translate3d(0, 0, 0); opacity: 0; }
+  18%  { opacity: var(--po); }
+  82%  { opacity: var(--po); }
+  100% { transform: translate3d(var(--dx), var(--dy), 0); opacity: 0; }
+}
+
+/* 移动端：重新构图，保证红橙地平线依然可见（不做简单裁切） */
+@media (max-width: 767px) {
+  .cb__clouds-far   { inset: -18% -34%; }
+  .cb__clouds-mid   { inset: -16% -30%; }
+  .cb__horizon      { bottom: 20%; height: 40%; }
+  .cb__horizon-core { bottom: 24%; width: 72%; }
+  .cb__rays         { bottom: 16%; height: 74%; width: 170%; }
+  .cb__fog-b        { inset: -18% -50%; }
+}
+
+/* 尊重系统“减少动效”偏好：关闭全部动画与视差 */
 @media (prefers-reduced-motion: reduce) {
-  .hero-bg__glow { animation: none !important; }
+  .cb__layer { transition: none; transform: none; }
+  .cb__clouds-far,
+  .cb__clouds-mid,
+  .cb__fog-a,
+  .cb__fog-b,
+  .cb__horizon,
+  .cb__horizon-core,
+  .cb__rays,
+  .cb__particle {
+    animation: none !important;
+  }
 }
-

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import CinematicBackground from './CinematicBackground';
 
 const BAR_HEIGHTS = [
   23, 40, 53, 40, 33, 14, 7, 17, 75, 65,
@@ -222,14 +223,9 @@ const Nav = () => {
 function Hero() {
   return (
     <section
-      className="relative w-full h-screen overflow-hidden bg-[#080A19]"
+      className="relative w-full h-screen overflow-hidden bg-[#020617]"
     >
-      <div className="hero-bg" aria-hidden="true">
-        <div className="hero-bg__glow hero-bg__glow--1" />
-        <div className="hero-bg__glow hero-bg__glow--2" />
-        <div className="hero-bg__glow hero-bg__glow--3" />
-        <div className="hero-bg__vignette" />
-      </div>
+      <CinematicBackground />
       <div className="relative z-10 h-full flex flex-col">
         <Nav />
 
