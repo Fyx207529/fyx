@@ -44,8 +44,8 @@ body {
   position: absolute;
   inset: -8%;
   background:
-    radial-gradient(92% 72% at 50% 74%, rgba(36, 152, 212, 0.34) 0%, rgba(11, 58, 104, 0.26) 38%, rgba(6, 21, 45, 0) 72%),
-    linear-gradient(180deg, #01040f 0%, #06152d 38%, #082b52 70%, #020617 100%);
+    radial-gradient(92% 72% at 50% 74%, rgba(45, 212, 191, 0.28) 0%, rgba(13, 148, 136, 0.2) 38%, rgba(6, 21, 45, 0) 72%),
+    linear-gradient(180deg, #01040f 0%, #04141d 38%, #062b31 70%, #020617 100%);
 }
 
 /* 2. 高空巨型云团（蓝黑） */
@@ -70,7 +70,7 @@ body {
   animation: cbCloudMid 68s ease-in-out infinite;
 }
 
-/* 4. 能量地平线光晕（红 / 橙 / 微量品红） */
+/* 4. 能量地平线光晕（翡翠 / 青绿） */
 .cb__horizon {
   position: absolute;
   left: 50%;
@@ -80,9 +80,9 @@ body {
   transform: translateX(-50%);
   background: radial-gradient(
     50% 62% at 50% 62%,
-    rgba(255, 106, 50, 0.52) 0%,
-    rgba(255, 42, 26, 0.3) 30%,
-    rgba(199, 43, 114, 0.13) 54%,
+    rgba(45, 212, 191, 0.5) 0%,
+    rgba(16, 185, 129, 0.28) 30%,
+    rgba(6, 95, 70, 0.13) 54%,
     rgba(2, 6, 23, 0) 78%
   );
   animation: cbHorizonPulse 12s ease-in-out infinite;
@@ -98,11 +98,11 @@ body {
   transform: translateX(-50%);
   background: repeating-linear-gradient(
     100deg,
-    rgba(255, 138, 61, 0.11) 0%,
-    rgba(255, 138, 61, 0) 3%,
-    rgba(255, 138, 61, 0) 6.5%,
-    rgba(92, 200, 255, 0.06) 8.5%,
-    rgba(92, 200, 255, 0) 13%
+    rgba(52, 211, 153, 0.11) 0%,
+    rgba(52, 211, 153, 0) 3%,
+    rgba(52, 211, 153, 0) 6.5%,
+    rgba(125, 211, 252, 0.06) 8.5%,
+    rgba(125, 211, 252, 0) 13%
   );
   -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.32) 42%, rgba(0, 0, 0, 0) 78%);
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.32) 42%, rgba(0, 0, 0, 0) 78%);
@@ -115,8 +115,8 @@ body {
   position: absolute;
   inset: -30% -42%;
   background:
-    radial-gradient(46% 30% at 28% 62%, rgba(23, 105, 170, 0.3) 0%, rgba(6, 21, 45, 0) 70%),
-    radial-gradient(40% 28% at 74% 70%, rgba(36, 152, 212, 0.2) 0%, rgba(2, 6, 23, 0) 72%);
+    radial-gradient(46% 30% at 28% 62%, rgba(13, 148, 136, 0.28) 0%, rgba(6, 21, 45, 0) 70%),
+    radial-gradient(40% 28% at 74% 70%, rgba(45, 212, 191, 0.18) 0%, rgba(2, 6, 23, 0) 72%);
   animation: cbFogA 44s ease-in-out infinite;
 }
 
@@ -130,9 +130,9 @@ body {
   transform: translateX(-50%);
   background: radial-gradient(
     50% 50% at 50% 50%,
-    rgba(255, 138, 61, 0.72) 0%,
-    rgba(255, 77, 45, 0.36) 38%,
-    rgba(255, 42, 26, 0) 74%
+    rgba(110, 231, 183, 0.72) 0%,
+    rgba(52, 211, 153, 0.36) 38%,
+    rgba(16, 185, 129, 0) 74%
   );
   filter: blur(30px);
   animation: cbHorizonPulse 11s ease-in-out infinite;
@@ -143,8 +143,8 @@ body {
   position: absolute;
   inset: -26% -38%;
   background:
-    radial-gradient(52% 34% at 56% 80%, rgba(11, 58, 104, 0.44) 0%, rgba(2, 6, 23, 0) 72%),
-    radial-gradient(38% 26% at 16% 86%, rgba(92, 200, 255, 0.13) 0%, rgba(2, 6, 23, 0) 74%);
+    radial-gradient(52% 34% at 56% 80%, rgba(20, 184, 166, 0.4) 0%, rgba(2, 6, 23, 0) 72%),
+    radial-gradient(38% 26% at 16% 86%, rgba(153, 246, 228, 0.12) 0%, rgba(2, 6, 23, 0) 74%);
   animation: cbFogB 62s ease-in-out infinite;
 }
 
@@ -211,6 +211,16 @@ body {
   0%   { transform: translateX(-50%) translate3d(-2%, 0, 0) skewX(-2deg); opacity: 0.5; }
   50%  { transform: translateX(-50%) translate3d(2%, -1%, 0) skewX(2deg);  opacity: 0.85; }
   100% { transform: translateX(-50%) translate3d(-2%, 0, 0) skewX(-2deg);  opacity: 0.5; }
+}
+
+/* 滚动指示小圆点：沿竖线向下滑动 */
+@keyframes cbScrollDot {
+  0%   { transform: translateY(-10px); opacity: 0; }
+  30%  { opacity: 1; }
+  100% { transform: translateY(40px); opacity: 0; }
+}
+.cb-scroll-dot {
+  animation: cbScrollDot 1.6s ease-in-out infinite;
 }
 @keyframes cbParticle {
   0%   { transform: translate3d(0, 0, 0); opacity: 0; }

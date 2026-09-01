@@ -53,8 +53,8 @@ const CinematicBackground = () => {
         delay: Math.random() * 22,
         dx: (Math.random() - 0.5) * 36,
         dy: -26 - Math.random() * 46,
-        // 少量偏暖（地平线能量），其余偏冷（大气蓝）
-        color: Math.random() > 0.68 ? '255,138,61' : '150,205,255',
+        // 少量偏暖亮（地平线能量），其余偏冷（翡翠大气）
+        color: Math.random() > 0.68 ? '110,231,183' : '153,246,228',
       })),
     []
   );
