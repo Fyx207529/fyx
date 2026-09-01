@@ -2,13 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import CinematicBackground from './CinematicBackground';
 
-const BAR_HEIGHTS = [
-  23, 40, 53, 40, 33, 14, 7, 17, 75, 65,
-  88, 75, 65, 47, 33, 88, 4, 7, 9, 14,
-  95, 65, 79, 37, 7, 40, 17, 20, 62, 47,
-  92, 72,
-];
-
 const NAV_LINKS = [
   { label: '首页', href: 'index.html' },
   { label: '项目', href: 'projects.html' },
@@ -48,51 +41,6 @@ const Animate = ({
   );
 };
 
-const FocusCard = () => {
-  return (
-    <div className="w-full max-w-[340px]">
-      <div className="w-full rounded-[20px] bg-[rgba(3,28,30,0.5)] backdrop-blur-[18px] p-5 pb-6">
-        <p className="text-white text-[14px] font-[450] leading-[20px] mb-2.5">
-          当前方向
-        </p>
-        <p className="mb-3.5">
-          <span className="text-white text-[22px] font-[450] leading-[1.25]">
-            智能温控睡眠硬件
-          </span>
-        </p>
-        <div className="flex flex-wrap items-center gap-[8px] mb-5">
-          {['器件选型', 'BOM 梳理', '供应商对接'].map((tag) => (
-            <span
-              key={tag}
-              className="px-[10px] py-[6px] bg-white/15 rounded-[6px] text-white text-[12px] font-[450] leading-[14px]"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-        <div className="relative">
-          <div className="flex items-end gap-[1.5px] h-[56px]">
-            {[...Array(32).keys()].map((i) => (
-              <div
-                key={i}
-                className="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom"
-                style={{
-                  height: `${(BAR_HEIGHTS[i] / 95) * 100}%`,
-                  backgroundColor: 'rgba(110,231,183,0.45)',
-                  animationDelay: `${1100 + i * 30}ms`,
-                }}
-              />
-            ))}
-          </div>
-        </div>
-        <p className="mt-3.5 text-white/70 text-[12px] font-[450] leading-[1.6]">
-          对标 EightSleep Pod5，做方案调研、器件选型与样品验证
-        </p>
-      </div>
-    </div>
-  );
-};
-
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -113,7 +61,7 @@ const Nav = () => {
         className="w-full max-w-[1800px] mx-auto px-5 sm:px-8 md:px-[82px] pt-[20px] sm:pt-[30px] flex items-center justify-between relative z-50"
       >
         <Animate delay={0} direction="down">
-          <a href="index.html" className="flex items-center gap-2.5">
+          <a href="index.html" className="flex items-center">
             <svg
               width="28"
               height="28"
@@ -123,7 +71,6 @@ const Nav = () => {
               <rect width="32" height="32" rx="7" fill="#e6c890" />
               <text x="16" y="23" fontSize="19" textAnchor="middle" fill="#111" fontFamily="system-ui, sans-serif">F</text>
             </svg>
-            <span className="text-white text-[20px] sm:text-[24px] font-[450] leading-none tracking-[0.02em]">付宇轩</span>
           </a>
         </Animate>
 
@@ -228,16 +175,16 @@ function Hero() {
       <div className="relative z-10 min-h-screen flex flex-col">
         <Nav />
 
-        {/* 居中主内容：眉题 → 大标题（双色）→ 副标题 → CTA */}
-        <div className="flex-1 flex flex-col items-center justify-center text-center px-5 sm:px-8 pt-6 pb-24 sm:pb-28">
+        {/* 主内容：靠左、缩小 */}
+        <div className="flex-1 flex flex-col items-start justify-center text-left px-5 sm:px-8 md:px-[82px] pt-6 pb-24 sm:pb-28">
           <Animate delay={250} direction="up">
-            <p className="text-white/60 text-xs sm:text-sm tracking-[0.25em] mb-6 sm:mb-8">
+            <p className="text-white/60 text-[11px] sm:text-xs tracking-[0.25em] mb-4 sm:mb-6">
               个人主页 · 2026
             </p>
           </Animate>
 
           <Animate delay={400} direction="up">
-            <h1 className="text-white text-[34px] sm:text-[46px] md:text-[58px] lg:text-[70px] font-normal leading-[1.12] tracking-[-0.01em] max-w-[880px]">
+            <h1 className="text-white text-[26px] sm:text-[34px] md:text-[42px] lg:text-[50px] font-normal leading-[1.15] tracking-[-0.01em] max-w-[620px]">
               在硬件与代码之间，
               <br />
               <span className="text-[#5EEAD4]">把想法做成实物</span>
@@ -245,13 +192,13 @@ function Hero() {
           </Animate>
 
           <Animate delay={550} direction="up">
-            <p className="mt-6 sm:mt-8 text-white/75 text-[15px] sm:text-[17px] md:text-[18px] font-[450] leading-[1.7] max-w-[520px]">
+            <p className="mt-5 sm:mt-6 text-white/75 text-[14px] sm:text-[15px] md:text-[16px] font-[450] leading-[1.7] max-w-[460px]">
               人工智能专业大一在读，聚焦智能温控睡眠硬件的方案调研、器件选型与样品验证；也自学前端，用网页记录和呈现自己的作品。
             </p>
           </Animate>
 
           <Animate delay={700} direction="up">
-            <div className="mt-8 sm:mt-10 flex flex-wrap justify-center gap-3 sm:gap-4">
+            <div className="mt-7 sm:mt-9 flex flex-wrap justify-start gap-3 sm:gap-4">
               <a
                 href="projects.html"
                 className="h-[46px] sm:h-[51px] px-6 sm:px-8 inline-flex items-center bg-white text-[#06131a] rounded-full text-[14px] sm:text-[15.5px] font-[450] leading-[15.5px] transition-colors duration-200 hover:bg-[#ccfbf1]"
@@ -265,13 +212,6 @@ function Hero() {
                 联系我
               </a>
             </div>
-          </Animate>
-        </div>
-
-        {/* 左下：当前方向卡片（桌面） */}
-        <div className="absolute left-5 sm:left-8 md:left-[82px] bottom-6 sm:bottom-8 z-10 hidden md:block">
-          <Animate delay={900} direction="up">
-            <FocusCard />
           </Animate>
         </div>
 
