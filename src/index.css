@@ -9,6 +9,9 @@ html {
 body {
   margin: 0;
   padding: 0;
+  /* 系统字体栈：不依赖任何第三方商业字体，规避字体授权风险，中英文渲染稳定 */
+  font-family: system-ui, -apple-system, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

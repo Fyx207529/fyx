@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const BAR_HEIGHTS = [
   23, 40, 53, 40, 33, 14, 7, 17, 75, 65,
   88, 75, 65, 47, 33, 88, 4, 7, 9, 14,
   95, 65, 79, 37, 7, 40, 17, 20, 62, 47,
   92, 72,
+];
+
+const NAV_LINKS = [
+  { label: '首页', href: 'index.html' },
+  { label: '项目', href: 'projects.html' },
+  { label: '技能', href: 'skills.html' },
+  { label: '关于我', href: 'about.html' },
+  { label: '实习总结', href: 'internship.html' },
+  { label: '联系', href: 'contact.html' },
 ];
 
 const directionClassMap = {
@@ -38,54 +47,47 @@ const Animate = ({
   );
 };
 
-const RevenueCard = () => {
+const FocusCard = () => {
   return (
     <Animate delay={900} direction="scale" className="w-full max-w-[405px] mx-auto lg:mx-0">
       <div
         className="w-full rounded-[24px] sm:rounded-[33px] bg-[rgba(17,16,15,0.35)] backdrop-blur-[20px] p-5 sm:p-8 pb-5 sm:pb-6"
       >
         <p className="text-white text-[16px] sm:text-[20px] font-[450] leading-[20px] mb-3 sm:mb-4">
-          Revenue Growth
+          当前方向
         </p>
-        <p className="mb-2 sm:mb-3">
-          <span className="text-white text-[28px] sm:text-[46px] font-[450] leading-[1]">
-            $14,205,890
+        <p className="mb-4 sm:mb-5">
+          <span className="text-white text-[26px] sm:text-[34px] font-[450] leading-[1.25]">
+            智能温控睡眠硬件
           </span>
-          <span className="text-white/20 text-[28px] sm:text-[46px] font-[450] leading-[1]">.00</span>
         </p>
         <div
-          className="flex items-center gap-[10px] mb-6 sm:mb-8"
+          className="flex flex-wrap items-center gap-[8px] mb-6 sm:mb-8"
         >
-          <span
-            className="px-[6px] py-[7px] bg-white/20 rounded-[6px] text-white text-[12px] sm:text-[14px] font-[450] leading-[14px]"
-          >
-            +32.4%
-          </span>
-          <span
-            className="text-white/80 text-[12px] sm:text-[14px] font-[450] leading-[14px] opacity-70"
-          >
-            vs. previous period ($10.7M)
-          </span>
+          {['器件选型', 'BOM 梳理', '供应商对接'].map((tag) => (
+            <span
+              key={tag}
+              className="px-[10px] py-[7px] bg-white/20 rounded-[6px] text-white text-[12px] sm:text-[13px] font-[450] leading-[14px]"
+            >
+              {tag}
+            </span>
+          ))}
         </div>
         <div className="relative">
           <div
             className="flex items-end gap-[1.5px] h-[80px] sm:h-[100px]"
           >
-            {[...Array(32).keys()].map((i) => {
-              const isProjected = i >= 28;
-              const heightPercent = (BAR_HEIGHTS[i] / 95) * 100;
-              return (
-                <div
-                  key={i}
-                  className="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom"
-                  style={{
-                    height: `${heightPercent}%`,
-                    backgroundColor: isProjected ? 'rgba(255,255,255,0.1)' : 'white',
-                    animationDelay: `${1100 + i * 30}ms`,
-                  }}
-                />
-              );
-            })}
+            {[...Array(32).keys()].map((i) => (
+              <div
+                key={i}
+                className="flex-1 rounded-[0.5px] animate-bar-grow origin-bottom"
+                style={{
+                  height: `${(BAR_HEIGHTS[i] / 95) * 100}%`,
+                  backgroundColor: 'rgba(255,255,255,0.45)',
+                  animationDelay: `${1100 + i * 30}ms`,
+                }}
+              />
+            ))}
           </div>
           <div className="absolute inset-0 pointer-events-none">
             {[0, 1, 2, 3, 4].map((i) => (
@@ -96,18 +98,10 @@ const RevenueCard = () => {
               />
             ))}
           </div>
-          <div className="flex justify-between mt-3">
-            {[10, 12, 14, 16, 16].map((label, i) => (
-              <div
-                key={label}
-                className="text-[9px] sm:text-[10px] font-[450] leading-[10px] text-white/80"
-                style={{ opacity: i >= 3 ? 0.4 : 1 }}
-              >
-                {label}
-              </div>
-            ))}
-          </div>
         </div>
+        <p className="mt-4 text-white/70 text-[12px] sm:text-[13px] font-[450] leading-[1.6]">
+          对标 EightSleep Pod5，做方案调研、器件选型与样品验证
+        </p>
       </div>
     </Animate>
   );
@@ -133,53 +127,45 @@ const Nav = () => {
         className="w-full max-w-[1800px] mx-auto px-5 sm:px-8 md:px-[82px] pt-[20px] sm:pt-[30px] flex items-center justify-between relative z-50"
       >
         <Animate delay={0} direction="down">
-          <div className="flex items-center gap-2.5">
+          <a href="index.html" className="flex items-center gap-2.5">
             <svg
               width="28"
               height="28"
-              viewBox="0 0 256 256"
-              fill="none"
+              viewBox="0 0 32 32"
               className="sm:w-[32px] sm:h-[32px]"
             >
-              <path
-                d="M 256 256 L 178 256 C 150.386 256 128 233.614 128 206 L 128 256 L 0 256 L 0 192 C 0 156.654 28.654 128 64 128 C 99.346 128 128 156.654 128 192 L 128 128 L 256 128 Z M 78 0 C 105.614 0 128 22.386 128 50 L 128 0 L 256 0 L 256 64 C 256 99.346 227.346 128 192 128 C 156.654 128 128 99.346 128 64 L 128 128 L 0 128 L 0 0 Z"
-              />
+              <rect width="32" height="32" rx="7" fill="#e6c890" />
+              <text x="16" y="23" fontSize="19" textAnchor="middle" fill="#111" fontFamily="system-ui, sans-serif">F</text>
             </svg>
-            <span className="text-white text-[22px] sm:text-[26px] font-[450] leading-none tracking-[-0.02em]">Apogee</span>
-          </div>
+            <span className="text-white text-[20px] sm:text-[24px] font-[450] leading-none tracking-[0.02em]">付宇轩</span>
+          </a>
         </Animate>
 
-        {/* Center nav pill */}
+        {/* 桌面端导航 */}
         <Animate delay={100} direction="down" className="hidden lg:block">
           <div
-            className="h-[52px] px-6 flex items-center gap-[30px] bg-[rgba(10,7,7,0.35)] rounded-[11px] backdrop-blur-[17px]"
+            className="h-[52px] px-6 flex items-center gap-[26px] bg-[rgba(10,7,7,0.35)] rounded-[11px] backdrop-blur-[17px]"
           >
-            <span className="text-white/80 text-[14px] font-[450] leading-[14px] hover:text-white transition-colors">
-              Platform
-            </span>
-            <span className="text-white/80 text-[14px] font-[450] leading-[14px] hover:text-white transition-colors">Pricing</span>
-            <span className="text-white/80 text-[14px] font-[450] leading-[14px] hover:text-white transition-colors">Resources</span>
-            <span className="text-white/80 text-[14px] font-[450] hover:text-white transition-colors">Blog</span>
-            <ChevronDown className="w-[10px] h-[10px] opacity-80" />
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-white/80 text-[14px] font-[450] leading-[14px] hover:text-white transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         </Animate>
 
-        {/* Right auth pill */}
+        {/* 桌面端 CTA */}
         <Animate delay={200} direction="down" className="hidden lg:block">
-          <div
-            className="h-[52px] p-[3px] bg-[rgba(0,0,0,0.35)] rounded-[13px] backdrop-blur-[17px] flex items-center gap-[5px]"
+          <a
+            href="contact.html"
+            className="h-[46px] px-6 inline-flex items-center bg-[#E9E9E9] rounded-[11px] text-[#0A0707] text-[14px] font-[450] leading-[14px] hover:bg-white transition-colors"
           >
-            <button
-              className="h-[46px] px-6 rounded-[11px] text-white text-[14px] font-[450] leading-[14px] hover:bg-white/5 transition-colors"
-            >
-              Login
-            </button>
-            <button
-              className="h-[46px] px-6 bg-[#E9E9E9] rounded-[11px] text-[#0A0707] text-[14px] font-[450] leading-[14px] hover:bg-white transition-colors"
-            >
-              Book a demo
-            </button>
-          </div>
+            联系我
+          </a>
         </Animate>
 
         {/* Mobile hamburger */}
@@ -214,35 +200,16 @@ const Nav = () => {
                 className={`absolute top-[76px] sm:top-[86px] left-4 right-4 sm:left-6 sm:right-6 bg-[rgba(17,16,15,0.6)] backdrop-blur-[30px] rounded-[20px] border border-white/[0.06] p-6 sm:p-8 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] origin-top ${isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-4 scale-[0.97]'}`}
               >
                 <div className="flex flex-col gap-1">
-                  {['Platform', 'Pricing', 'Resources', 'Blog'].map((item, i) => (
+                  {NAV_LINKS.map((link, i) => (
                     <a
-                      href="#"
-                      key={item}
-                      className="flex items-center justify-between px-4 py-4 rounded-[12px] text-white/90 text-[18px] font-[450]"
+                      href={link.href}
+                      key={link.href}
+                      className="px-4 py-4 rounded-[12px] text-white/90 text-[18px] font-[450]"
                       style={{ transitionDelay: isOpen ? `${100 + i * 50}ms` : '0ms' }}
                     >
-                      {item}
-                      {item === 'Platform' && (
-                        <ChevronDown className="w-4 h-4 opacity-50" />
-                      )}
+                      {link.label}
                     </a>
                   ))}
-                  <div className="h-px bg-white/10 my-5" />
-                  <div
-                    className="flex flex-col gap-3 transition-all duration-300"
-                    style={{ transitionDelay: isOpen ? '350ms' : '0ms' }}
-                  >
-                    <button
-                      className="w-full h-[50px] bg-[#E9E9E9] rounded-[12px] text-[#0A0707] text-[15px] font-[450] transition-colors hover:bg-white"
-                    >
-                      Book a demo
-                    </button>
-                    <button
-                      className="w-full h-[50px] rounded-[12px] border border-white/30 text-white text-[15px] font-[450] transition-colors hover:bg-white/5"
-                    >
-                      Login
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
@@ -268,40 +235,42 @@ function Hero() {
 
         <div className="flex-1 flex items-center py-8">
           <div className="w-full max-w-[1800px] mx-auto px-5 sm:px-8 md:px-[82px] flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 lg:gap-12">
-            <div className="max-w-[593px]">
+            <div className="max-w-[640px]">
               <Animate delay={300} direction="up">
                 <h1
-                  className="text-white text-[36px] sm:text-[52px] md:text-[64px] lg:text-[72px] font-normal leading-[0.95] mb-5 sm:mb-8"
+                  className="text-white text-[34px] sm:text-[44px] md:text-[52px] lg:text-[58px] font-normal leading-[1.15] mb-5 sm:mb-8"
                 >
-                  Elevate your essential data to new heights
+                  在硬件与代码之间，把想法做成实物
                 </h1>
               </Animate>
 
               <Animate delay={500} direction="up">
                 <p
-                  className="text-white/80 text-[16px] sm:text-[18px] md:text-[20px] font-[450] leading-[1.3] max-w-[370px] mb-7 sm:mb-10"
+                  className="text-white/80 text-[15px] sm:text-[17px] md:text-[18px] font-[450] leading-[1.7] max-w-[460px] mb-7 sm:mb-10"
                 >
-                  Advanced reasoning systems and predictive models built for the unknown
+                  人工智能专业大一在读，聚焦智能温控睡眠硬件的方案调研、器件选型与样品验证；也自学前端，用网页记录和呈现自己的作品。
                 </p>
               </Animate>
 
               <Animate delay={700} direction="up">
                 <div className="flex flex-wrap gap-3 sm:gap-4">
-                  <button
-                    className="h-[46px] sm:h-[51px] px-5 sm:px-[27px] bg-[#E9E9E9] text-[#0A0707] rounded-[12px] text-[14px] sm:text-[15.5px] font-[450] leading-[15.5px] transition-opacity duration-200 hover:opacity-90"
+                  <a
+                    href="projects.html"
+                    className="h-[46px] sm:h-[51px] px-5 sm:px-[27px] inline-flex items-center bg-[#E9E9E9] text-[#0A0707] rounded-[12px] text-[14px] sm:text-[15.5px] font-[450] leading-[15.5px] transition-opacity duration-200 hover:opacity-90"
                   >
-                    Book a demo
-                  </button>
-                  <button
-                    className="h-[46px] sm:h-[51px] px-5 sm:px-[27px] rounded-[12px] border border-white text-white text-[14px] sm:text-[15.5px] font-[450] leading-[15.5px] transition-opacity duration-200 hover:opacity-80"
+                    查看项目
+                  </a>
+                  <a
+                    href="contact.html"
+                    className="h-[46px] sm:h-[51px] px-5 sm:px-[27px] inline-flex items-center rounded-[12px] border border-white text-white text-[14px] sm:text-[15.5px] font-[450] leading-[15.5px] transition-opacity duration-200 hover:opacity-80"
                   >
-                    Talk with the team
-                  </button>
+                    联系我
+                  </a>
                 </div>
               </Animate>
             </div>
 
-            <RevenueCard />
+            <FocusCard />
           </div>
         </div>
       </div>
