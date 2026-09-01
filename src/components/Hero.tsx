@@ -210,7 +210,21 @@ function Hero() {
     <section
       className="relative w-full min-h-screen overflow-hidden bg-[#020617]"
     >
+      {/* 兜底：原创 CSS 极光（第三方视频失效时显示，合法、不会空白） */}
       <CinematicBackground />
+      {/* 主背景：提示词指定的第三方星云视频（用户选择热链，风险自担） */}
+      <div className="absolute inset-0 z-[1]">
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260813_092641_de52eb87-daf2-41db-92cb-7a56eae012a5.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+        {/* 轻量压暗，保证中文文案可读 */}
+        <div className="absolute inset-0 bg-black/25" />
+      </div>
       <div className="relative z-10 min-h-screen flex flex-col">
         <Nav />
 
